@@ -20,17 +20,13 @@ fi
 for arg in "$@"; do
     case "$arg" in
         -h|--help)
-            echo "Usage: $0 [path/to/chat.txt] [model]"
-            echo "If no path is provided, defaults to chats/token-chat.txt"
+            echo "Usage: $0 [path/to/chat.txt]"
+            echo "If no path is provided, the script will analyze all files in the chats/ folder"
             exit 0
             ;;
     esac
 done
 
-# If no arguments supplied, default to the bundled chat file
-if [ "$#" -eq 0 ]; then
-    set -- "chats/token-chat.txt"
-fi
-
-# Forward all provided args to the Python script
+# Forward all provided args to the Python script. If none are provided, call without args so the
+# Python script will process all files in `chats/`.
 python count-tokens.py "$@"
